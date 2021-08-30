@@ -11,7 +11,7 @@ Currently, requires following packages
 ## Training
 To train the model(s) in the paper, run this command:
 ```
-python -m  UACL_train.py --data='train_list.txt' --batch_size=8 --image_size=128 --class_num=10 --epochs=200 --checkpoint='checkpoints' --save_frep=50 --attack_strength=8 --attack_step_size=8 --attack_iter=10  --lr=5.0 --weight_decay=1e-6 --momentum =0.9 --mean=0.184 --std=0.119 --seed=1
+python -m  UACL_train.py --data='train_list.txt' --batch_size=8 --image_size=128 --class_num=10 --epochs=200 --checkpoint='checkpoints' --save_frep=50 --attack_strength=8 --attack_step_size=1 --attack_iter=10  --lr=5.0 --weight_decay=1e-6 --momentum =0.9 --mean=0.184 --std=0.119 --seed=1
 ```
 
 ## Finetune
