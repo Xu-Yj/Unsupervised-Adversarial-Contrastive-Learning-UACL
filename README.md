@@ -7,4 +7,4 @@ Currently, requires following packages
 + torchvision 0.7+
 + CUDA 10.1+
 + tqdm 4.36+
-+ time 
++ PIL 6.2.2
