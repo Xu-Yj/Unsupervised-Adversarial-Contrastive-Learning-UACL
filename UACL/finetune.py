@@ -12,8 +12,8 @@ from tqdm import trange
 import argparse
 
 parser = argparse.ArgumentParser(description='Pytorch Finetune')
-parser.add_argument('--data_dir',type=str,default='checkpoint/UACL_encoder.pkl',help='the address of data')
-parser.add_argument('--pretrained_model_dir',type=str,default='MSTAR',help='the address of pretrained model')
+parser.add_argument('--data_dir',type=str,default='MSTAR',help='the address of data')
+parser.add_argument('--pretrained_model_dir',type=str,default='checkpoint/UACL_encoder.pkl',help='the address of pretrained model')
 parser.add_argument('--checkpoint',type=str,default='checkpoints',help='address of saving trained model')
 parser.add_argument('--image_size',type=int,default=128,help='image size')
 parser.add_argument('--batch_size',type=int,default=8,help='batch size')
