@@ -120,6 +120,7 @@ if __name__ == '__main__':
     use_gpu = torch.cuda.is_available()
     # get model and replace the original fc layer with your fc layer
     model_ft = torch.load(pretrained_model_dir)
+    model_ft.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
     if use_gpu:
         model_ft = model_ft.cuda()
     # define loss function
