@@ -17,7 +17,7 @@ parser.add_argument('--pretrained_model_dir',type=str,default='checkpoint/UACL_e
 parser.add_argument('--checkpoint',type=str,default='checkpoints',help='address of saving trained model')
 parser.add_argument('--image_size',type=int,default=128,help='image size')
 parser.add_argument('--batch_size',type=int,default=8,help='batch size')
-parser.add_argument('--epochs',type=int,default=1,help='number of total epochs to run')
+parser.add_argument('--epochs',type=int,default=100,help='number of total epochs to run')
 parser.add_argument('--mean',type=float,default=0.184,help='mean of dataset')
 parser.add_argument('--std',type=float,default=0.119,help='standard deviation of dataset')
 parser.add_argument('--shuffle',type=bool,default=True,help='if the dataset is random shuffled')
