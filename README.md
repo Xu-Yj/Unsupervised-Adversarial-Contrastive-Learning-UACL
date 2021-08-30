@@ -8,3 +8,5 @@ Currently, requires following packages
 + CUDA 10.1+
 + tqdm 4.36+
 + PIL 6.2.2
+## Training
+To train the model(s) in the paper, run this command:
