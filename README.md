@@ -6,6 +6,7 @@ Currently, requires following packages
 * torch 1.6+
 * torchvision 0.7+
 * CUDA 10.1+
+* tqdm 4.41+
 * PIL 6.2+
 * kornia 0.4+
 ## Training
