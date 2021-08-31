@@ -4,9 +4,9 @@ This repository is the official PyTorch implementation of "Unsupervised Adversar
 Currently, requires following packages
 * python 3.6+
 * torch 1.6+
-* torchvision 0.4+
+* torchvision 0.7+
 * CUDA 10.1+
-* PIL 5.2+
+* PIL 6.2+
 * kornia 0.4+
 
 
