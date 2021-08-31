@@ -14,7 +14,7 @@ parser.add_argument('--if_al',type=bool,default=True,help='if the adversarial le
 parser.add_argument('--image_size',type=int,default=128,help='image size')
 parser.add_argument('--batch_size',type=int,default=8,help='batch size')
 parser.add_argument('--class_num',type=int,default=10,help='class num of data')
-parser.add_argument('--epochs',type=int,default=1,help='number of total epochs to run')
+parser.add_argument('--epochs',type=int,default=200,help='number of total epochs to run')
 parser.add_argument('--checkpoint',type=str,default='checkpoints',help='address of saving pretrained model')
 parser.add_argument('--save_frep',type=int,default=100,help='save frequency')
 parser.add_argument('--attack_strength',type=int,default=8,help='attack strength of unsupervised attack')
@@ -31,46 +31,45 @@ parser.add_argument('--seed',type=int,default=1,help='random seed')
 
 global args
 args = parser.parse_args()
-class MyDataset(torch.utils.data.Dataset):  # 创建自己的类：MyDataset,这个类是继承的torch.utils.data.Dataset
-    def __init__(self, root, datatxt1, datatxt2, transform=None, target_transform=None):  # 初始化一些需要传入的参数
+class MyDataset(torch.utils.data.Dataset): 
+    def __init__(self, root, datatxt1, datatxt2, transform=None, target_transform=None): 
         super(MyDataset, self).__init__()
 
-        fh1 = open(root + datatxt1, 'r')  # 按照传入的路径和txt文本参数，打开这个文本，并读取内容
-        imgs1 = []  # 创建一个名为img的空列表，一会儿用来装东西
-        for line in fh1:  # 按行循环txt文本中的内容
-            line = line.rstrip()  # 删除 本行string 字符串末尾的指定字符，这个方法的详细介绍自己查询python
-            words = line.split()  # 通过指定分隔符对字符串进行切片，默认为所有的空字符，包括空格、换行、制表符等
-            imgs1.append((words[0], int(words[1])))  # 把txt里的内容读入imgs列表保存，具体是words几要看txt内容而定
-            # 很显然，根据我刚才截图所示txt的内容，words[0]是图片信息，words[1]是lable
+        fh1 = open(root + datatxt1, 'r') 
+        imgs1 = [] 
+        for line in fh1:  
+            line = line.rstrip()  
+            words = line.split() 
+            imgs1.append((words[0], int(words[1])))  
+            
         self.imgs1 = imgs1
 
-        fh2 = open(root + datatxt2, 'r')  # 按照传入的路径和txt文本参数，打开这个文本，并读取内容
-        imgs2 = []  # 创建一个名为img的空列表，一会儿用来装东西
-        for line in fh2:  # 按行循环txt文本中的内容
-            line = line.rstrip()  # 删除 本行string 字符串末尾的指定字符，这个方法的详细介绍自己查询python
-            words = line.split()  # 通过指定分隔符对字符串进行切片，默认为所有的空字符，包括空格、换行、制表符等
-            imgs2.append((words[0], int(words[1])))  # 把txt里的内容读入imgs列表保存，具体是words几要看txt内容而定
-            # 很显然，根据我刚才截图所示txt的内容，words[0]是图片信息，words[1]是lable
+        fh2 = open(root + datatxt2, 'r') 
+        imgs2 = []  
+        for line in fh2:  
+            line = line.rstrip() 
+            words = line.split() 
+            imgs2.append((words[0], int(words[1])))  
+            
         self.imgs2 = imgs2
 
         self.transform = transform
         self.target_transform = target_transform
 
-    def __getitem__(self, index):  # 用于按照索引读取每个元素的具体内容
-        fn1, label1 = self.imgs1[index]  # fn是图片path #fn和label分别获得imgs[index]也即是刚才每行中word[0]和word[1]的信息
+    def __getitem__(self, index):  
+        fn1, label1 = self.imgs1[index]  
 
-        img1 = Image.open(fn1).convert('RGB')  # 按照path读入图片from PIL import Image # 按照路径读取图片
-
-        if self.transform is not None:
-            img1 = self.transform(img1)  # 是否进行transform
-        fn2, label2 = self.imgs2[index]  # fn是图片path #fn和label分别获得imgs[index]也即是刚才每行中word[0]和word[1]的信息
-        img2 = Image.open(fn2).convert('RGB')  # 按照path读入图片from PIL import Image # 按照路径读取图片
+        img1 = Image.open(fn1).convert('RGB')  
 
         if self.transform is not None:
-            img2 = self.transform(img2)  # 是否进行transform
-        return img1, img2  # return很关键，return回哪些内容，那么我们在训练时循环读取每个batch时，就能获得哪些内容
+            img1 = self.transform(img1) 
+        fn2, label2 = self.imgs2[index]  
+        img2 = Image.open(fn2).convert('RGB')  
 
-    def __len__(self):  # 它返回的是数据集的长度，也就是多少张图片，要和loader的长度作区分
+        if self.transform is not None:
+            img2 = self.transform(img2)  
+        return img1, img2  
+    def __len__(self):  
         return len(self.imgs1)
 
 mean = args.mean
@@ -137,7 +136,7 @@ if __name__ == '__main__':
                     inputs2.requires_grad_()
                     pertubation=torch.zeros(inputs2.shape).type_as(inputs2).cuda()
                     min,max=inputs2 - attack_strength / 255 / std, inputs2 + attack_strength / 255 / std
-                    #无监督对抗攻击
+                  
                     #unsupervised adversarial attack
                     for _ in range(attack_iter):
                         loss = uacl(inputs1, inputs2)
