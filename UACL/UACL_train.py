@@ -108,7 +108,6 @@ def project(x, original_x, epsilon, _type='linf'):
     else:
         raise NotImplementedError
     return x
-#对张量的min，max
 def clip_by_tensor(t,t_min,t_max):
     m1=t>t_min
     m2=~m1
