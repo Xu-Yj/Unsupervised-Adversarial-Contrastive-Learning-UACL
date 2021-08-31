@@ -234,12 +234,7 @@ class UACL(nn.Module):
         # print(online_pred_one.shape,'online_pred_one.shape')
         loss_one = loss_fn(online_pred_one, target_proj_two.detach())
         loss_two = loss_fn(online_pred_two, target_proj_one.detach())
-
-        # gai##################################################################################################################################
         loss = loss_one + loss_two
-
-        # loss=loss_two
-
         # target_proj_one = F.normalize(target_proj_one.detach(), dim=-1, p=2)
         # online_pred_two = F.normalize(online_pred_two, dim=-1, p=2)
         # loss=-F.mse_loss(target_proj_one,online_pred_two)
