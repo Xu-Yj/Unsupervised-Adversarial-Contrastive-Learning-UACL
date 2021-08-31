@@ -8,6 +8,8 @@ Currently, requires following packages
 * CUDA 10.1+
 * PIL 6.2+
 * kornia 0.4+
+## Training
+To train the model(s) in the paper, run this command:
 
 
 
