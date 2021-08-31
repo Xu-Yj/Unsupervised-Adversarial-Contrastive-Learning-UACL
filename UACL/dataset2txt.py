@@ -1,28 +1,28 @@
 import os
 def generate(dir, label):
-    files = os.listdir(dir) #os.listdir() 方法用于返回指定的文件夹包含的文件或文件夹的名字的列表。
-    files.sort()  #对文件或文件夹进行排序
+    files = os.listdir(dir) 
+    files.sort()  
     print('****************')
     print('input :', dir)
     print('start...')
-    listText = open('F:\\uacl_gf3\\txts\\train_list.txt', 'a+')
-    #listText = open('F:\\二次转移内容\\自监督论文程序\\github\\byol-pytorch-master\\byol-pytorch-master\\examples\\lightning\\dataset45专用\\txt_set/val_pgd16.txt', 'a+')  #创建并打开一个txt文件，a+表示打开一个文件并追加内容
-    for file in files:  #遍历文件夹中的文件
-        fileType = os.path.split(file) #os.path.split（）返回文件的路径和文件名，【0】为路径，【1】为文件名
-        if fileType[1] == '.txt':  #若文件名的后缀为txt,则继续遍历循环，否则退出循环
+    listText = open('txts\\train_list.txt', 'a+')
+    #listText = open('txt_set/val.txt', 'a+') 
+    for file in files:  
+        fileType = os.path.split(file) 
+        if fileType[1] == '.txt':  
             continue
-        name =outer_path+ '/'+ folder+ '/' +file + ' ' + str(int(label)) + '\n'  #name 为文件路径和文件名+空格+label+换行
-        listText.write(name)  #在创建的txt文件中写入name
-    listText.close() #关闭txt文件
+        name =outer_path+ '/'+ folder+ '/' +file + ' ' + str(int(label)) + '\n' 
+        listText.write(name)  
+    listText.close() 
     print('down!')
     print('****************')
 
 
-outer_path = 'F:\\二次转移内容\\自作工具包\\class\\gf3\\train'  # 这里是你的图片路径
+outer_path = '' 
 
-if __name__ == '__main__':  #主函数
+if __name__ == '__main__':  
     i = 0
-    folderlist = os.listdir(outer_path)# 列举文件夹
-    for folder in folderlist:  #遍历文件夹中的文件夹(若engagement文件夹中存在txt或py文件，则后面会报错）
-        generate(os.path.join(outer_path, folder), i)#调用generate函数，函数中的参数为：（图片路径+文件夹名，标签号）
+    folderlist = os.listdir(outer_path)
+    for folder in folderlist:  
+        generate(os.path.join(outer_path, folder), i)
         i += 1
