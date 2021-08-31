@@ -22,7 +22,7 @@ parser.add_argument('--checkpoint',type=str,default='checkpoints',help='address 
 parser.add_argument('--mean',type=float,default=0.184,help='mean of dataset')
 parser.add_argument('--std',type=float,default=0.119,help='standard deviation of dataset')
 parser.add_argument('--shuffle',type=bool,default=True,help='if the dataset is random shuffled')
-parser.add_argument('--batch_size',type=int,default=8,help='batch size')
+
 
 global args
 args = parser.parse_args()
@@ -34,7 +34,7 @@ shuffle = args.shuffle
 data_dir = args.data_dir
 pretrained_model_dir = args.pretrained_model_dir
 checkpoint = args.checkpoint
-
+epochs = args.epochs
 def train_model(model, criterion, optimizer, scheduler, num_epochs=100):
     since = time.time()
     best_model_wts = model.state_dict()
@@ -134,5 +134,5 @@ if __name__ == '__main__':
                            criterion=criterion,
                            optimizer=optimizer_ft,
                            scheduler=exp_lr_scheduler,
-                           num_epochs=batch_size)
+                           num_epochs=epochs)
     torch.save(model_ft,"{}/UACL_classifier.pth".format(checkpoint))
